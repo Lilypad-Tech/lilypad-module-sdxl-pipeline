@@ -13,7 +13,7 @@
       "Docker": {
         "Entrypoint": [
           "/usr/games/cowsay",
-          {{if .Message}}{{.Message}}{{else}}moo{{end}}
+          {{if .Message}}{{.Message}}{{else}}"moo"{{end}}
         ],
         "Image": "grycap/cowsay@sha256:fad516b39e3a587f33ce3dbbb1e646073ef35e0b696bcf9afb1a3e399ce2ab0b"
       },
