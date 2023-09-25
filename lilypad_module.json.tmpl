@@ -13,7 +13,7 @@
       "Docker": {
         "Entrypoint": [
           "/usr/games/cowsay",
-          {{or .Message "pass me a Message input to have me say it. moo"}}
+          {or .Message "pass me a Message input to have me say it. moo"}
         ],
         "Image": "grycap/cowsay@sha256:fad516b39e3a587f33ce3dbbb1e646073ef35e0b696bcf9afb1a3e399ce2ab0b"
       },
