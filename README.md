@@ -1,17 +1,3 @@
-# Example Lilypad Module
-
-Author your own Lilypad module:
-
-Create a file called `lilypad_module.json.tmpl`
-
-This is a json template with Go text/template style `{{.Message}}` sections which will be replaced by Lilypad with valid JSON strings which are passed as input to modules.
-
-Pass inputs as:
-
-```
-lilypad run github.com/username/repo:tag -i Message=moo
-```
-
 # SDXL to SV3D pipeline in Docker 🐋
 Initially built with SDXL-0.9, this will later use SDXL-1.0.
 
