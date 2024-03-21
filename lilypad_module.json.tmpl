@@ -1,34 +1,56 @@
 {
-  "machine": {
-    "gpu": 0,
-    "cpu": 1000,
-    "ram": 100
-  },
-  "job": {
-    "APIVersion": "V1beta1",
-    "Spec": {
-      "Deal": {
-        "Concurrency": 1
-      },
-      "Docker": {
-        "Entrypoint": [
-          "/usr/games/cowsay",
-          {{if .Message}}{{.Message}}{{else}}"Pass me an input called Message, like lilypad run cowsay:v0.0.2 -i Message=moo"{{end}}
-        ],
-        "Image": "grycap/cowsay@sha256:fad516b39e3a587f33ce3dbbb1e646073ef35e0b696bcf9afb1a3e399ce2ab0b"
-      },
-      "Engine": "Docker",
-      "Network": {
-        "Type": "None"
-      },
-      "PublisherSpec": {
-        "Type": "IPFS"
-      },
-      "Resources": {
-        "GPU": ""
-      },
-      "Timeout": 1800,
-      "Verifier": "Noop"
+    "machine": {
+        "gpu": 1,
+        "cpu": 1000,
+        "ram": 100
+    },
+    "job": {
+        "APIVersion": "V1beta1",
+        "Metadata": {
+            "CreatedAt": "0001-01-01T00:00:00Z",
+            "Requester": {}
+        },
+        "Spec": {
+            "Deal": {
+                "Concurrency": 1
+            },
+            "Docker": {},
+            "EngineSpec": {
+                "Params": {
+                "Entrypoint": null,
+                "EnvironmentVariables": [
+                    {{if .PromptEnv}}{{.PromptEnv}}{{else}}"PROMPT=question mark floating in space"{{end}},
+                    {{if .SeedEnv}}{{.SeedEnv}}{{else}}"RANDOM_SEED=42"{{end}},
+                    "OUTPUT_DIR=/outputs/",
+                    "HF_HUB_OFFLINE=1"
+                ],
+                "Image": "docker.io/zorlin/sdxl-sv3du:v0.9-sv3d-lilypad1",
+                "Parameters": [
+                    "python3 inference.py 2>/dev/null"
+                ],
+                "WorkingDirectory": ""
+                },
+                "Type": "docker"
+            },
+            "Network": {
+                "Type": "None"
+            },
+            "Outputs": [
+                {
+                "Name": "outputs",
+                "Path": "/outputs"
+                }
+            ],
+            "PublisherSpec": {
+                "Type": "ipfs"
+            },
+            "Resources": {
+                "GPU": "1"
+            },
+            "Timeout": 1800,
+            "Wasm": {
+                "EntryModule": {}
+            }
+        }
     }
-  }
 }
