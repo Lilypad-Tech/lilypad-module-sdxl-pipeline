@@ -1,4 +1,4 @@
-# SDXL to SV3D pipeline in Docker 🐋
+# (WIP) SDXL to SV3D pipeline in Docker 🐋
 Initially built with SDXL-0.9, this will later use SDXL-1.0.
 
 This script will generate an image using SDXL, then take the result and send it through SV3D to generate a 3D video.
