@@ -58,6 +58,8 @@ except Exception as e:
 
 prompt = os.getenv("PROMPT", "An astronaut riding a green horse")
 
+print(f"Generating image with prompt: {prompt}")
+
 try:
     results = pipe(prompt=prompt, generator=g)
     images = results.images if hasattr(results, 'images') else []
