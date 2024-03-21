@@ -16,19 +16,21 @@
             },
             "Docker": {},
             "EngineSpec": {
-                "Params": {
-                    "Entrypoint": null,
-                    "EnvironmentVariables": [
-                        {{if .PromptEnv}}{{.PromptEnv}}{{else}}"PROMPT=question mark floating in space"{{end}},
-                        {{if .SeedEnv}}{{.SeedEnv}}{{else}}"RANDOM_SEED=42"{{end}},
-                        "OUTPUT_DIR=/outputs/",
-                        "HF_HUB_OFFLINE=1"
-                    ],
-                    "Image": "docker.io/zorlin/sdxl-sv3du:v0.9-sv3d-lilypad1",
-                    "Parameters": ["low-mem"],
-                    "WorkingDirectory": ""
-                },
                 "Type": "docker"
+                "Params": {
+                "Entrypoint": null,
+                "EnvironmentVariables": [
+                    {{if .PromptEnv}}{{.PromptEnv}}{{else}}"PROMPT=question mark floating in space"{{end}},
+                    {{if .SeedEnv}}{{.SeedEnv}}{{else}}"RANDOM_SEED=42"{{end}},
+                    "OUTPUT_DIR=/outputs/",
+                    "HF_HUB_OFFLINE=1"
+                ],
+                "Image": "docker.io/zorlin/sdxl-sv3du:v0.9-sv3d-lilypad1",
+                "Parameters": [
+                    "--low-mem"
+                ],
+                "WorkingDirectory": ""
+                },
             },
             "Network": {
                 "Type": "None"
