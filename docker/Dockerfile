@@ -5,16 +5,31 @@ ARG HUGGINGFACE_TOKEN
 RUN mkdir /app
 WORKDIR /app
 
+# TODO: Cleanup and re-eval how many of these dependencies are actually necessary
 # Install dependencies
-ADD requirements.txt /app/requirements.txt
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -y && apt-get install -y python3 python3-pip git libgl1-mesa-glx libglib2.0-0 && \
-    pip3 install -r requirements.txt && \
-    pip3 install huggingface_hub==0.21.4 && \
-    huggingface-cli login --token $HUGGINGFACE_TOKEN && \
-    python3 -c "from diffusers import DiffusionPipeline; import torch; pipe = DiffusionPipeline.from_pretrained('stabilityai/stable-diffusion-xl-base-0.9', torch_dtype=torch.float16, use_safetensors=True, variant='fp16'); pipe.unet = torch.compile(pipe.unet, mode='reduce-overhead', fullgraph=True); pipe.save_pretrained('/app/optimized_model')" && \
+    pip3 install huggingface_hub==0.21.4
+
+# Download ComfyUI
+RUN git clone https://github.com/comfyanonymous/ComfyUI.git /app/ComfyUI/
+
+# Install dependencies for NVIDIA
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update -y && apt-get install -y python3 python3-pip git libgl1-mesa-glx libglib2.0-0 && \
+    pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu121 && \
+    pip3 install -r /app/ComfyUI/requirements.txt && \
+    pip3 install huggingface_hub==0.21.4
+
+# # Download models, SDXL 1.0 Refiner
+# RUN huggingface-cli login --token $HUGGINGFACE_TOKEN && \
+#     huggingface-cli download stabilityai/stable-diffusion-xl-refiner-1.0 sd_xl_refiner_1.0.safetensors --local-dir-use-symlinks False --local-dir /app/ComfyUI/models/checkpoints/ && \
+#     rm /root/.cache/huggingface/token
+
+# Download models, SDXL 0.9 Refiner
+RUN huggingface-cli login --token $HUGGINGFACE_TOKEN && \
+    huggingface-cli download stabilityai/stable-diffusion-xl-refiner-0.9 sd_xl_refiner_0.9.safetensors --local-dir-use-symlinks False --local-dir /app/ComfyUI/models/checkpoints/ && \
     rm /root/.cache/huggingface/token
 
 FROM builder as runner
-ADD inference.py /app/inference.py
-ENTRYPOINT ["python3", "/app/inference.py"]
+ENTRYPOINT ["python3", "/app/entrypoint.py"]

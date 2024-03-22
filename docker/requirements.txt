@@ -1,5 +1,0 @@
-invisible_watermark==0.2.0
-transformers==4.38.2
-accelerate==0.28.0
-safetensors==0.4.2
-diffusers==0.27.2

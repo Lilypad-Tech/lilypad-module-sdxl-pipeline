@@ -1,1 +1,0 @@
-# Run python scripts/sampling/simple_video_sample.py --input_path <path/to/image.png> --version sv3d_u
