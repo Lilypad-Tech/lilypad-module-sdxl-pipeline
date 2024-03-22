@@ -32,4 +32,9 @@ RUN huggingface-cli login --token $HUGGINGFACE_TOKEN && \
     rm /root/.cache/huggingface/token
 
 FROM builder as runner
+ADD entrypoint.py /app/entrypoint.py
+
+# Add our workflows
+ADD workflows/sdxl-0.9-refiner.json /app/workflow.json
+
 ENTRYPOINT ["python3", "/app/entrypoint.py"]
