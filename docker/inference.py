@@ -61,7 +61,7 @@ prompt = os.getenv("PROMPT", "An astronaut riding a green horse")
 print(f"Generating image with prompt: {prompt}")
 
 try:
-    results = pipe(prompt=prompt, generator=g)
+    results = pipe(prompt=prompt, height=576, width=1024, generator=g)
     images = results.images if hasattr(results, 'images') else []
     if len(images) == 0:
         raise ValueError("No images were generated.")
