@@ -31,8 +31,9 @@ Will generate new PNG images into `outputs/` each time.
 You can run the following to run a Lilypad job using this module:
 `lilypad run sdxl-r2:v0.9-lilypad3 -i PROMPT="an astronaut floating against white background"`
 
-Results (initial):
-![image-42.png](media/image-42.png)
+Results:
+
+![spaceman.png](media/spaceman.png)
 
 # Credits
 Based on [lilypad-sdxl](https://github.com/lilypad-tech/lilypad-sdxl-module), which was written by early Lilypad contributors.
