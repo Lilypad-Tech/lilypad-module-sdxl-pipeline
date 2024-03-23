@@ -37,4 +37,4 @@ ADD entrypoint.py /app/entrypoint.py
 # Add our workflows
 ADD workflows/sdxl-0.9-refiner.json /app/workflow.json
 
-ENTRYPOINT ["python3", "/app/entrypoint.py"]
+ENTRYPOINT ["python3", "-u", "/app/entrypoint.py"]

@@ -1,3 +1,4 @@
+#/usr/bin/env python3
 import sys
 import subprocess
 import os
@@ -8,7 +9,8 @@ import signal
 from urllib import request, parse
 import time
 import subprocess
-#/usr/bin/env python3
+import logging
+
 def run_comfyui():
     global comfyui_thread
     comfyui_thread = subprocess.Popen(["python3", "/app/ComfyUI/main.py", "--listen", "127.0.0.1", "--output-directory", "/outputs/"])
@@ -47,14 +49,25 @@ response = None
 timeout = 30 # If ComfyUI doesn't start within 10 seconds, we'll give up
 
 start_time = time.time()
-while time.time() - start_time < timeout:
+timer = start_time
+delay = 1 # How long to wait between checks
+
+while timer - start_time < timeout:
     try:
-        response = requests.get(startup_check_url)
-        time.sleep(1)
-        if response.status_code == 200:
+        response = requests.get(startup_check_url, timeout=5)
+        if response is None or response.status_code != 200:
+            if response:
+                print(f"Server not ready yet ({response.status_code}). Waiting 1 second...")
+            else:
+                print("Server not ready yet (no response). Waiting 1 second...")
+            time.sleep(delay)
+            timer = time.time()
+        else:
             break
-    except requests.exceptions.RequestException:
-        pass
+    except requests.exceptions.RequestException as e:
+        print("Server not ready yet (requests raised an exception). Waiting 1 second...")
+        time.sleep(delay)
+        timer = time.time()
 
 if response is None or response.status_code != 200:
     # Print last status code if available
@@ -107,8 +120,8 @@ save_image_node = prompt_workflow["9"]
 chkpoint_loader_node["inputs"]["ckpt_name"] = "sd_xl_refiner_0.9.safetensors"
 
 # set image dimensions and batch size in EmptyLatentImage node
-empty_latent_img_node["inputs"]["width"] = 512
-empty_latent_img_node["inputs"]["height"] = 512
+empty_latent_img_node["inputs"]["width"] = 1024
+empty_latent_img_node["inputs"]["height"] = 1024
 
 # set the text prompt for positive CLIPTextEncode node
 prompt_pos_node["inputs"]["text"] = prompt
@@ -123,21 +136,35 @@ save_image_node["inputs"]["filename_prefix"] = "output"
 queue_prompt(prompt_workflow)
 
 # Wait for the prompt to finish
-
 def check_queue_status():
-    response = requests.get("http://127.0.0.1:8188/queue")
-    return response.json()
+    try:
+        response = requests.get("http://127.0.0.1:8188/queue", timeout=5)
+        if response is None or response.status_code != 200:
+            if response:
+                print(f"Server not ready ({response.status_code}). Waiting 1 second...")
+            else:
+                print("Server not ready (no response). Waiting 1 second...")
+            return "NOTREADY"
+        else:
+            return response.json()
+    except requests.exceptions.RequestException as e:
+        print("Server not ready (requests raised an exception). Waiting 1 second...")
+        return "NOTREADY"
 
 # Check the queue status
 queue_status = check_queue_status()
 timeout = 900 # If prompt doesn't finish within 900 seconds, we'll give up
 start_time = time.time()
-while time.time() - start_time < timeout:
+timer = start_time
+while timer - start_time < timeout:
+    queue_status = check_queue_status()
     if queue_status == {"queue_running": [], "queue_pending": []}:
         print("Prompt finished successfully.")
         break
     else:
-        queue_status = check_queue_status()
+        print("[DEBUG] Prompt is still running. Waiting 1 second...")
+        time.sleep(1)
+        timer = time.time()
 else:
     print("Prompt is still running or there was an error.")
     # Kill the ComfyUI server and exit with an error
