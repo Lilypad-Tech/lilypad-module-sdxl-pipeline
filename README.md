@@ -45,4 +45,4 @@ Based on [lilypad-sdxl](https://github.com/lilypad-tech/lilypad-sdxl-module), wh
 
 Based on ComfyUI.
 
-With thanks and a hat tip to https://medium.com/@yushantripleseven/comfyui-using-the-api-261293aa055a for great API examples and the basis of our wrapper/API script.
+With thanks and a hat tip to https://medium.com/@yushantripleseven/comfyui-using-the-api-261293aa055a for great API examples and the basis of our wrapper/API script. entrypoint.sh loosely based on [basic_workflow_api.py by yushan777](https://gist.github.com/yushan777/1e31e06c088550611f3a0b91ba150975).
