@@ -17,7 +17,7 @@ RUN git clone https://github.com/comfyanonymous/ComfyUI.git /app/ComfyUI/
 # Install dependencies for NVIDIA
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -y && apt-get install -y python3 python3-pip git libgl1-mesa-glx libglib2.0-0 && \
-    pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu121 && \
+    pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 && \
     pip3 install -r /app/ComfyUI/requirements.txt && \
     pip3 install huggingface_hub==0.21.4
 
