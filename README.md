@@ -18,7 +18,7 @@ export HUGGINGFACE_TOKEN=<my huggingface token>
 # From the root directory of this repository, change to the docker folder.
 cd docker/
 # Build the docker image
-DOCKER_BUILDKIT=1 docker build --no-cache -t sdxl:v0.9-lilypad5 -f Dockerfile --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
+DOCKER_BUILDKIT=1 docker build --no-cache -t zorlin/sdxl:v0.9-lilypad5 -f Dockerfile --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
 ```
 ```
 mkdir -p outputs
@@ -28,7 +28,7 @@ docker run -ti --gpus all \
     -v $PWD/outputs:/outputs \
     -e OUTPUT_DIR=/outputs/ \
     -e PROMPT="an astronaut floating against white background" \
-    sdxl:v0.9-lilypad5
+    zorlin/sdxl:v0.9-lilypad5
 ```
 Will generate new PNG images into `outputs/` each time.
 
