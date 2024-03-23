@@ -19,7 +19,7 @@
                 "Params": {
                 "Entrypoint": null,
                 "EnvironmentVariables": [
-                    {{if .Prompt}}{{ subst "PROMPT=%s" .Prompt }}{{end}},
+                    "{{ if .Prompt }}{{ subst "PROMPT=%s" .Prompt }}{{ end }}",
                     "HF_HUB_OFFLINE=1"
                 ],
                 "Image": "docker.io/zorlin/sdxl:v0.9-lilypad3",
