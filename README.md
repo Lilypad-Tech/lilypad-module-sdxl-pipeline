@@ -28,13 +28,13 @@ docker run -ti --gpus all \
     -v $PWD/outputs:/outputs \
     -e OUTPUT_DIR=/outputs/ \
     -e PROMPT="an astronaut floating against white background" \
-    zorlin/sdxl:v0.9-lilypad5
+    zorlin/sdxl:v0.9-lilypad10
 ```
 Will generate new PNG images into `outputs/` each time.
 
 ## Run it in Lilypad
 You can run the following to run a Lilypad job using this module:
-`lilypad run sdxl-r2:v0.9-lilypad3 -i PromptEnv="PROMPT="an astronaut floating against white background"`
+`lilypad run sdxl-r2:v0.9-lilypad10 -i Prompt="an astronaut floating against white background"`
 
 Results:
 

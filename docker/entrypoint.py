@@ -25,6 +25,14 @@ def stop_comfyui():
         # End the thread
         comfyui_thread = None
 
+# Core settings
+KSAMPLER_NAMES = ["euler", "euler_ancestral", "heun", "heunpp2","dpm_2", "dpm_2_ancestral",
+                  "lms", "dpm_fast", "dpm_adaptive", "dpmpp_2s_ancestral", "dpmpp_sde", "dpmpp_sde_gpu",
+                  "dpmpp_2m", "dpmpp_2m_sde", "dpmpp_2m_sde_gpu", "dpmpp_3m_sde", "dpmpp_3m_sde_gpu", "ddpm", "lcm"]
+SCHEDULER_NAMES = ["normal", "karras", "exponential", "sgm_uniform", "simple", "ddim_uniform"]
+
+timeout = 30 # If ComfyUI doesn't start within this many seconds, we'll give up
+
 # Run ComfyUI in a subprocess.
 debug_mode = False
 
@@ -43,7 +51,6 @@ comfyui_thread.start()
 # Wait for the server to be ready
 startup_check_url = "http://127.0.0.1:8188/queue"
 response = None
-timeout = 30 # If ComfyUI doesn't start within 10 seconds, we'll give up
 
 start_time = time.time()
 timer = start_time
@@ -98,11 +105,33 @@ prompt = os.environ.get("PROMPT") or "question mark floating in space"
 # Get seed from $RANDOM_SEED, falling back to 42 if not set
 seed = os.environ.get("RANDOM_SEED") or "42"
 
-# Get size from $SIZE, falling back to 512 if not set
+# Get size from $SIZE, falling back to 1024 if not set
 # Valid sizes are 256, 512, 1024
-size = os.environ.get("SIZE") or "512"
-if size not in ["256", "512", "1024"]:
-    print(f"Invalid size {size}. Must be one of 256, 512, 1024.")
+size = os.environ.get("SIZE") or "1024"
+if size not in ["512", "768", "1024"]:
+    print(f"Invalid size {size}. Must be one of 512, 768, 1024.")
+    stop_comfyui()
+    sys.exit(1)
+
+# Get steps from $STEPS, falling back to 20 if not set
+# Valid range is 5 to 200
+steps = os.environ.get("STEPS") or 20
+if size not in ["512", "768", "1024"]:
+    print(f"Invalid number of steps ({steps}). Valid range is 5 to 200 inclusive.")
+    stop_comfyui()
+    sys.exit(1)
+
+# Get sampler name from $SAMPLER, falling back to "euler_ancestral" if not set
+sampler = os.environ.get("SAMPLER") or "euler_ancestral"
+if sampler not in KSAMPLER_NAMES:
+    print(f"Invalid sampler {sampler}. Must be one of euler, euler_ancestral, heun, heunpp2, dpm_2, dpm_2_ancestral, lms, dpm_fast, dpm_adaptive, dpmpp_2s_ancestral, dpmpp_sde, dpmpp_sde_gpu, dpmpp_2m, dpmpp_2m_sde, dpmpp_2m_sde_gpu, dpmpp_3m_sde, dpmpp_3m_sde_gpu, ddpm, lcm.")
+    stop_comfyui()
+    sys.exit(1)
+
+# Get scheduler name from $SCHEDULER, falling back to "normal" if not set
+scheduler = os.environ.get("SCHEDULER") or "normal"
+if scheduler not in SCHEDULER_NAMES:
+    print(f"Invalid scheduler {scheduler}. Must be one of normal, karras, exponential, sgm_uniform, simple, ddim_uniform.")
     stop_comfyui()
     sys.exit(1)
 
@@ -117,14 +146,23 @@ save_image_node = prompt_workflow["9"]
 chkpoint_loader_node["inputs"]["ckpt_name"] = "sd_xl_refiner_0.9.safetensors"
 
 # set image dimensions and batch size in EmptyLatentImage node
-empty_latent_img_node["inputs"]["width"] = 1024
-empty_latent_img_node["inputs"]["height"] = 1024
+empty_latent_img_node["inputs"]["width"] = size
+empty_latent_img_node["inputs"]["height"] = size
 
 # set the text prompt for positive CLIPTextEncode node
 prompt_pos_node["inputs"]["text"] = prompt
 
 # set the seed in KSampler node
 ksampler_node["inputs"]["seed"] = seed
+
+# set the steps in KSampler node
+ksampler_node["inputs"]["steps"] = steps
+
+# set the sampler name in KSampler node
+ksampler_node["inputs"]["sampler_name"] = sampler
+
+# set the scheduler name in KSampler node
+ksampler_node["inputs"]["scheduler"] = scheduler
 
 # set the filename output prefix
 save_image_node["inputs"]["filename_prefix"] = "output"
