@@ -145,6 +145,8 @@ You can then run your module with
 Note that most nodes on the public Lilypad network will be unlikely to run your module (due to allowlisting), so you may need to run a Lilypad node to test your changes. Once your module is stable and tested, you can request that it be adopted as an official module. Alternatively, if you're simply making changes to this module instead of making a new one, feel free to submit a pull request.
 
 # Credits
+Authored by the Lilypad team. Maintained by [Zorlin](https://github.com/Zorlin).
+
 Based on [lilypad-sdxl](https://github.com/lilypad-tech/lilypad-sdxl-module), which was written by early Lilypad contributors.
 
 Based on ComfyUI.
