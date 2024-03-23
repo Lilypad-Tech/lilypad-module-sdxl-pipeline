@@ -11,7 +11,7 @@ import subprocess
 #/usr/bin/env python3
 def run_comfyui():
     global comfyui_thread
-    comfyui_thread = subprocess.Popen(["python3", "/app/ComfyUI/main.py", "--listen", "--output-directory", "/outputs/"])
+    comfyui_thread = subprocess.Popen(["python3", "/app/ComfyUI/main.py", "--listen", "127.0.0.1", "--output-directory", "/outputs/"])
 
 def stop_comfyui():
     global comfyui_thread
@@ -57,6 +57,9 @@ while time.time() - start_time < timeout:
         pass
 
 if response is None or response.status_code != 200:
+    # Print last status code if available
+    if response:
+        print(f"Fatal error: Failed to connect to the server. Status code: {response.status_code}")
     print("Fatal error: Failed to connect to the server within the timeout period.")
     sys.exit(1)
 
