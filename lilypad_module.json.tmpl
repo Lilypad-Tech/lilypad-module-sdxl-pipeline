@@ -19,9 +19,7 @@
                 "Params": {
                 "Entrypoint": null,
                 "EnvironmentVariables": [
-                    {{if .PromptEnv}}{{.PromptEnv}}{{else}}"PROMPT=question mark floating in space"{{end}},
-                    {{if .SeedEnv}}{{.SeedEnv}}{{else}}"RANDOM_SEED=42"{{end}},
-                    "OUTPUT_DIR=/outputs/",
+                    {{if .Prompt}}{{ subt "PROMPT=%s" .Prompt }}{{end}},
                     "HF_HUB_OFFLINE=1"
                 ],
                 "Image": "docker.io/zorlin/sdxl:v0.9-lilypad3",
