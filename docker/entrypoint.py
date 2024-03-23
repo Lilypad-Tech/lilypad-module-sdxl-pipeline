@@ -80,7 +80,21 @@ def queue_prompt(prompt_workflow):
 prompt_workflow = json.load(open('workflow.json'))
 
 # Get prompt from $PROMPT, falling back to "question mark floating in space" if not set
-prompt = os.environ.get("PROMPT") or "question mark floating in space"
+#prompt = os.environ.get("PROMPT") or "question mark floating in space"
+# create a list of prompts
+prompt_list = []
+prompt_list.append("photo of a man sitting in a cafe")
+prompt_list.append("photo of a woman standing in the middle of a busy street")
+prompt_list.append("drawing of a cat sitting in a tree")
+prompt_list.append("beautiful scenery nature glass bottle landscape, purple galaxy bottle")
+prompt_list.append("beautiful scenery nature glass bottle landscape, purple galaxy bottlex")
+prompt_list.append("beautiful scenery nature glass bottle landscape, purple galaxy bottley")
+prompt_list.append("beautiful scenery nature glass bottle landscape, purple galaxy bottlez")
+prompt_list.append("beautiful scenery nature glass bottle landscape, purple galaxy bottlea")
+prompt_list.append("beautiful scenery nature glass bottle landscape, purple galaxy bottleasd")
+prompt_list.append("beautiful scenery nature glass bottle landscape, purple galaxy bottleawesd")
+prompt_list.append("beautiful scenery nature glass bottle landscape, purple galaxy bottleaesd")
+prompt_list.append("beautiful scenery nature glass bottle landscape, purple galaxy bottlerrrrr")
 
 # Get seed from $RANDOM_SEED, falling back to 42 if not set
 seed = os.environ.get("RANDOM_SEED") or "42"
@@ -107,19 +121,21 @@ chkpoint_loader_node["inputs"]["ckpt_name"] = "sd_xl_refiner_0.9.safetensors"
 empty_latent_img_node["inputs"]["width"] = 512
 empty_latent_img_node["inputs"]["height"] = 512
 
-# set the text prompt for positive CLIPTextEncode node
-prompt_pos_node["inputs"]["text"] = prompt
+# for every prompt in prompt_list...
+for index, prompt in enumerate(prompt_list):
+    # set the text prompt for positive CLIPTextEncode node
+    prompt_pos_node["inputs"]["text"] = prompt
 
-# set the seed in KSampler node 
-ksampler_node["inputs"]["seed"] = seed
+    # set the seed in KSampler node 
+    ksampler_node["inputs"]["seed"] = seed
 
-# set the filename output prefix
-save_image_node["inputs"]["filename_prefix"] = "output"
+    # set the filename output prefix
+    save_image_node["inputs"]["filename_prefix"] = "output"
 
-# everything set, add entire workflow to queue.
-queue_prompt(prompt_workflow)
+    # everything set, add entire workflow to queue.
+    queue_prompt(prompt_workflow)
 
-# Wait for the prompt to finish
+# Wait for the prompts to finish
 
 def check_queue_status():
     response = requests.get("http://127.0.0.1:8188/queue")
