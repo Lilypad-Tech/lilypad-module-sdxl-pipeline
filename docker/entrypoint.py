@@ -42,7 +42,7 @@ comfyui_thread = threading.Thread(target=run_comfyui)
 comfyui_thread.start()
 
 # Wait for the server to be ready
-startup_check_url = "http://localhost:8188/queue"
+startup_check_url = "http://127.0.0.1:8188/queue"
 response = None
 timeout = 10 # If ComfyUI doesn't start within 10 seconds, we'll give up
 
@@ -121,7 +121,7 @@ queue_prompt(prompt_workflow)
 # Wait for the prompt to finish
 
 def check_queue_status():
-    response = requests.get("http://localhost:8188/queue")
+    response = requests.get("http://127.0.0.1:8188/queue")
     return response.json()
 
 # Check the queue status
