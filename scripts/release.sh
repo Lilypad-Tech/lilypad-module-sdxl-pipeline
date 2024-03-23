@@ -11,8 +11,8 @@ cd "$(dirname "$0")"
 # Load the versions
 source VERSIONS.env
 
-# Change to the root directory of the repository. We do this by locking onto this script's location and then moving up a directory.
-cd "$(dirname "$0")/.."
+# Change to the root directory of the repository.
+cd ".."
 
 # Check that jq is installed
 if ! command -v jq &> /dev/null; then
