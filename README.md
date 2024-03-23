@@ -1,14 +1,7 @@
-# SDXL pipeline in Docker 🐋
-Initially built with SDXL-0.9 Refiner, this will later allow you to use all of the following models:
-
-- SDXL-0.9-base
-- SDXL-0.9-refiner
-- SDXL-1.0-base
-- SDXL-1.0-refiner
-
+# SDXL pipeline in Lilypad and Docker 🐋
 **In early testing stages: here be dragons.**
 
-Based on ComfyUI.
+Based on ComfyUI, the SDXL Pipeline module for Lilypad is a module that allows you generate images on Lilypad using Stable Diffusion XL and related models.
 
 # Usage
 This module is designed to be run in a Docker container, either through the Lilypad Network or in Docker directly.
