@@ -33,6 +33,6 @@ ADD entrypoint.py /app/entrypoint.py
 ADD workflow.json /app/workflow.json
 
 # Set the name of our chosen model
-RUN jq '.["4"].inputs.ckpt_name = "sd_xl_base_0.9.safetensors"' -i /app/workflow.json
+RUN jq '.["4"].inputs.ckpt_name = "sd_xl_base_0.9.safetensors"' /app/workflow.json > /app/temp_workflow.json && mv /app/temp_workflow.json /app/workflow.json
 
 ENTRYPOINT ["python3", "-u", "/app/entrypoint.py"]

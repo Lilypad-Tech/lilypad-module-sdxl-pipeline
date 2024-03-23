@@ -51,16 +51,11 @@ docker push zorlin/sdxl:v1.0-refiner-lilypad$V1_0_REFINER
 echo "Please test the new Docker containers prior to running release.sh."
 echo
 echo "The easiest way to test them is, well, Docker! Here's some commands to inspire you:"
-docker run -ti --gpus all \
-    -v $PWD/outputs:/outputs \
-    -e PROMPT="an astronaut floating against a white background" \
-    -e STEPS=50 \
-    zorlin/sdxl:v1.0-refiner-lilypad1
 
-echo "docker run -it --gpus all -v $PWD/outputs:/outputs -e PROMPT='a lilypad in space' -e STEPS=69 sdxl-pipeline:v0.9-base-lilypad$V0_9_BASE"
-echo "docker run -it --gpus all -v $PWD/outputs:/outputs -e PROMPT='a lilypad in space' -e STEPS=69 sdxl-pipeline:v0.9-refiner-lilypad$V0_9_REFINER"
-echo "docker run -it --gpus all -v $PWD/outputs:/outputs -e PROMPT='a lilypad in space' -e STEPS=69 sdxl-pipeline:v1.0-base-lilypad$V1_0_BASE"
-echo "docker run -it --gpus all -v $PWD/outputs:/outputs -e PROMPT='a lilypad in space' -e STEPS=69 sdxl-pipeline:v1.0-refiner-lilypad$V1_0_REFINER"
+echo "docker run -it --gpus all -v $PWD/outputs:/outputs -e PROMPT='a lilypad in space' -e STEPS=69 zorlin/sdxl:v0.9-base-lilypad$V0_9_BASE"
+echo "docker run -it --gpus all -v $PWD/outputs:/outputs -e PROMPT='a lilypad in space' -e STEPS=69 zorlin/sdxl:v0.9-refiner-lilypad$V0_9_REFINER"
+echo "docker run -it --gpus all -v $PWD/outputs:/outputs -e PROMPT='a lilypad in space' -e STEPS=69 zorlin/sdxl:v1.0-base-lilypad$V1_0_BASE"
+echo "docker run -it --gpus all -v $PWD/outputs:/outputs -e PROMPT='a lilypad in space' -e STEPS=69 zorlin/sdxl:v1.0-refiner-lilypad$V1_0_REFINER"
 echo
 echo "Don't forget to update the README.md with the new versions!"
 

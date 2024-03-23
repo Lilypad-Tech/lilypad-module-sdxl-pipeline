@@ -143,9 +143,6 @@ empty_latent_img_node = prompt_workflow["5"]
 ksampler_node = prompt_workflow["3"]
 save_image_node = prompt_workflow["9"]
 
-# load the checkpoint that we want.
-chkpoint_loader_node["inputs"]["ckpt_name"] = "sd_xl_refiner_0.9.safetensors"
-
 # set image dimensions and batch size in EmptyLatentImage node
 empty_latent_img_node["inputs"]["width"] = size
 empty_latent_img_node["inputs"]["height"] = size
