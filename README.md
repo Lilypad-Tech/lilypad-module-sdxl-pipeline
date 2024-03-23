@@ -1,7 +1,12 @@
-# SDXL 0.9/1.0 pipeline in Docker 🐋
-Initially built with SDXL-0.9, this will later use SDXL-1.0.
+# SDXL pipeline in Docker 🐋
+Initially built with SDXL-0.9 Refiner, this will later allow you to use all of the following models:
 
-(WIP, NOT USABLE YET, HERE BE DRAGONS)
+- SDXL-0.9-base
+- SDXL-0.9-refiner
+- SDXL-1.0-base
+- SDXL-1.0-refiner
+
+**In early testing stages: here be dragons.**
 
 Based on ComfyUI.
 
