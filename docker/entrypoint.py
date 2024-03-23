@@ -25,9 +25,6 @@ def stop_comfyui():
         # End the thread
         comfyui_thread = None
 
-# Start ComfyUI in a background thread
-comfyui_thread = threading.Thread(target=run_comfyui)
-comfyui_thread.start()
 # Run ComfyUI in a subprocess.
 debug_mode = False
 
