@@ -25,11 +25,11 @@ docker run -ti --gpus all \
     -e PROMPT="an astronaut floating against white background" \
     sdxl:v0.9-sv3d-lilypad3
 ```
-Will overwrite `outputs/image0.png` each time.
+Will generate new PNG images into `outputs/` each time.
 
 ## Run it in Lilypad
 You can run the following to run a Lilypad job using this module:
-`lilypad run sdxl:v0.9-lilypad3 -i PROMPT="an astronaut floating against white background"`
+`lilypad run sdxl-r2:v0.9-lilypad3 -i PROMPT="an astronaut floating against white background"`
 
 Results (initial):
 ![image-42.png](media/image-42.png)
