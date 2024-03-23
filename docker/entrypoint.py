@@ -68,17 +68,17 @@ time.sleep(1)
 
 # Process and submit our job
 # ======================================================================
-# This function sends a prompt workflow to the specified URL 
+# This function sends a prompt workflow to the specified URL
 # (http://127.0.0.1:8188/prompt) and queues it on the ComfyUI server
 # running at that address.
 def queue_prompt(prompt_workflow):
     p = {"prompt": prompt_workflow}
     data = json.dumps(p).encode('utf-8')
     req =  request.Request("http://127.0.0.1:8188/prompt", data=data)
-    request.urlopen(req)    
+    request.urlopen(req)
 # ======================================================================
 
-# read workflow api data from file and convert it into dictionary 
+# read workflow api data from file and convert it into dictionary
 # assign to var prompt_workflow
 prompt_workflow = json.load(open('workflow.json'))
 
@@ -103,7 +103,7 @@ empty_latent_img_node = prompt_workflow["5"]
 ksampler_node = prompt_workflow["3"]
 save_image_node = prompt_workflow["9"]
 
-# load the checkpoint that we want. 
+# load the checkpoint that we want.
 chkpoint_loader_node["inputs"]["ckpt_name"] = "sd_xl_refiner_0.9.safetensors"
 
 # set image dimensions and batch size in EmptyLatentImage node
@@ -113,7 +113,7 @@ empty_latent_img_node["inputs"]["height"] = 512
 # set the text prompt for positive CLIPTextEncode node
 prompt_pos_node["inputs"]["text"] = prompt
 
-# set the seed in KSampler node 
+# set the seed in KSampler node
 ksampler_node["inputs"]["seed"] = seed
 
 # set the filename output prefix
