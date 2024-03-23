@@ -44,12 +44,13 @@ comfyui_thread.start()
 # Wait for the server to be ready
 startup_check_url = "http://127.0.0.1:8188/queue"
 response = None
-timeout = 10 # If ComfyUI doesn't start within 10 seconds, we'll give up
+timeout = 30 # If ComfyUI doesn't start within 10 seconds, we'll give up
 
 start_time = time.time()
 while time.time() - start_time < timeout:
     try:
         response = requests.get(startup_check_url)
+	time.sleep(1)
         if response.status_code == 200:
             break
     except requests.exceptions.RequestException:
