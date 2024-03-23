@@ -41,7 +41,7 @@ fi
 # For each module, we'll switch to that module's branch, update lilypad_module.json.tmpl with the new Docker version, commit the change, and push it to the repository.
 # We'll then tag the commit with the new Lilypad version and push the tag to the repository.
 git checkout sdxl-0.9-base
-jq '.job.Spec.EngineSpec.Params.Image = "docker.io/zorlin/sdxl:v0.9-base-lilypad'"$V0_9_BASE" lilypad_module.json.tmpl > lilypad_module.json.tmpl.new
+jq '.job.Spec.EngineSpec.Params.Image = "docker.io/zorlin/sdxl:v0.9-base-lilypad'$V0_9_BASE'"' lilypad_module.json.tmpl > lilypad_module.json.tmpl.new
 mv lilypad_module.json.tmpl.new lilypad_module.json.tmpl
 git add lilypad_module.json.tmpl
 #git commit -m "Update container version to v0.9-base-lilypad$V0_9_BASE"
