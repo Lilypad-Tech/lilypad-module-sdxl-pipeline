@@ -31,7 +31,7 @@
     },
     "4": {
       "inputs": {
-        "ckpt_name": "sd_xl_refiner_0.9.safetensors"
+        "ckpt_name": "placeholder.safetensors"
       },
       "class_type": "CheckpointLoaderSimple",
       "_meta": {

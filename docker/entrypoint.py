@@ -32,6 +32,7 @@ KSAMPLER_NAMES = ["euler", "euler_ancestral", "heun", "heunpp2","dpm_2", "dpm_2_
 SCHEDULER_NAMES = ["normal", "karras", "exponential", "sgm_uniform", "simple", "ddim_uniform"]
 
 timeout = 30 # If ComfyUI doesn't start within this many seconds, we'll give up
+default_steps = 50 # Default number of steps
 
 # Run ComfyUI in a subprocess.
 debug_mode = False
@@ -102,20 +103,20 @@ prompt_workflow = json.load(open('workflow.json'))
 # Get prompt from $PROMPT, falling back to "question mark floating in space" if not set
 prompt = os.environ.get("PROMPT") or "question mark floating in space"
 
-# Get seed from $RANDOM_SEED, falling back to 42 if not set
-seed = os.environ.get("RANDOM_SEED") or "42"
+# Get seed from $SEED, falling back to 42 if not set
+seed = os.environ.get("SEED") or "42"
 
 # Get size from $SIZE, falling back to 1024 if not set
-# Valid sizes are 256, 512, 1024
+# Valid sizes are 512, 768 and 1024.
 size = os.environ.get("SIZE") or "1024"
-if size not in ["512", "768", "1024"]:
-    print(f"Invalid size {size}. Must be one of 512, 768, 1024.")
+if size not in ["512", "768", "1024", "2048"]:
+    print(f"Invalid size {size}. Must be one of 512, 768, 1024, 2048.")
     stop_comfyui()
     sys.exit(1)
 
-# Get steps from $STEPS, falling back to 20 if not set
+# Get steps from $STEPS, falling back to default_steps if not set
 # Valid range is 5 to 200
-steps = os.environ.get("STEPS") or 20
+steps = os.environ.get("STEPS") or default_steps
 if size not in ["512", "768", "1024"]:
     print(f"Invalid number of steps ({steps}). Valid range is 5 to 200 inclusive.")
     stop_comfyui()
