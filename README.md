@@ -140,7 +140,7 @@ Once you've made your changes, publish your Docker image, then edit `lilypad_mod
 
 You can then run your module with 
 
-`lilypad run github.com/zorlin/example:v0.1.2` to test your changes, replacing `zorlin` with your username and `v0.1.2` with the tag you created.
+`lilypad run github.com/zorlin/example:v0.1.2 -i Prompt="A very awesome dragon riding a unicorn"` to test your changes, replacing `zorlin` with your username and `v0.1.2` with the tag you created.
 
 Note that most nodes on the public Lilypad network will be unlikely to run your module (due to allowlisting), so you may need to run a Lilypad node to test your changes. Once your module is stable and tested, you can request that it be adopted as an official module. Alternatively, if you're simply making changes to this module instead of making a new one, feel free to submit a pull request.
 
