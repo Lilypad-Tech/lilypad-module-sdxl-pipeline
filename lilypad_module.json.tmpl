@@ -2,7 +2,7 @@
     "machine": {
         "gpu": 1,
         "cpu": 1000,
-        "ram": 100
+        "ram": 1000
     },
     "job": {
         "APIVersion": "V1beta1",
@@ -17,17 +17,17 @@
             "Docker": {},
             "EngineSpec": {
                 "Params": {
-                    "Entrypoint": null,
-                    "EnvironmentVariables": [
-                        {{if .PromptEnv}}{{.PromptEnv}}{{else}}"PROMPT=question mark floating in space"{{end}},
-                        {{if .SeedEnv}}{{.SeedEnv}}{{else}}"RANDOM_SEED=42"{{end}},
-                        "OUTPUT_DIR=/outputs/",
-                        "HF_HUB_OFFLINE=1"
-                    ],
-                    "Image": "docker.io/zorlin/sdxl-sv3du:v0.9-sv3d-lilypad1",
-                    "Parameters": [
-                    ],
-                    "WorkingDirectory": ""
+                "Entrypoint": null,
+                "EnvironmentVariables": [
+                    {{if .PromptEnv}}{{.PromptEnv}}{{else}}"PROMPT=question mark floating in space"{{end}},
+                    {{if .SeedEnv}}{{.SeedEnv}}{{else}}"RANDOM_SEED=42"{{end}},
+                    "OUTPUT_DIR=/outputs/",
+                    "HF_HUB_OFFLINE=1"
+                ],
+                "Image": "docker.io/zorlin/sdxl:v0.9-lilypad3",
+                "Parameters": [
+                ],
+                "WorkingDirectory": ""
                 },
                 "Type": "docker"
             },
