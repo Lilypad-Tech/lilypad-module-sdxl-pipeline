@@ -1,47 +1,12 @@
-# SDXL pipeline in Lilypad and Docker 🐋
+# SDXL Pipeline for Lilypad and Docker 🐋
 **In early testing stages: here be dragons.**
 
-Based on ComfyUI, the SDXL Pipeline module for Lilypad is a module that allows you generate images on Lilypad using Stable Diffusion XL and related models.
+Based on ComfyUI, the SDXL Pipeline modules for Lilypad allow you generate images on Lilypad using Stable Diffusion XL and related models.
+
+They supports both the Refiner and Base versions of SDXL v0.9 and v1.0.
 
 # Usage
-This module is designed to be run in a Docker container, either through the Lilypad Network or in Docker directly.
-
-## Lilypad
-To run this module in Lilypad, you can use the following command:
-
-```bash
-lilypad run sdxl-r2:v0.9-lilypad10 -i Prompt="an astronaut floating against a white background"
-```
-
-If you wish to specify more than one tunable, such as the number of steps, simply add more `-i` flags, like so:
-
-```bash
-lilypad run sdxl-r2:v0.9-lilypad10 -i Prompt="an astronaut floating against a white background" -i Steps=69
-```
-
-See the options and tunables section for more information on what tunables are available.
-
-## Docker
-
-To run this module in Docker, you can use the following command:
-
-```bash
-docker run -ti --gpus all \
-    -v $PWD/outputs:/outputs \
-    -e PROMPT="an astronaut floating against a white background" \
-    -e STEPS=50 \
-    zorlin/sdxl:v0.9-lilypad10
-```
-
-If you wish to specify more than one tunable, such as the number of steps, simply add more `-e` flags, like so:
-
-```bash
--e PROMPT="an astronaut floating against a white background" \
--e STEPS=69 \
--e SIZE=2048 \
-```
-
-See the options and tunables section for more information on what tunables are available.
+These modules are designed to be run in a Docker container, either through the Lilypad Network or in Docker directly.
 
 ## Options and tunables
 The following tunables are available. All of them are optional, and have default settings that will be used if you do not provide them.
@@ -56,6 +21,96 @@ The following tunables are available. All of them are optional, and have default
 | `Size` | The output size requested in px | `1024` | `512`, `768`, `1024`, `2048` |
 
 See the usage sections for the runner of your choice for more information on how to set and use these variables.
+
+## Lilypad
+To run SDXL Pipeline in Lilypad, you can use the following commands:
+
+### SDXL v0.9
+Base:
+```bash
+lilypad run sdxl-pipeline:v0.9-base-lilypad1 -i Prompt="an astronaut floating against a white background"
+```
+
+Refiner:
+```bash
+lilypad run sdxl-pipeline:v0.9-refiner-lilypad1 -i Prompt="an astronaut floating against a white background"
+```
+
+### SDXL 1.0
+Base:
+```bash
+lilypad run sdxl-pipeline:v1.0-base-lilypad1 -i Prompt="an astronaut floating against a white background"
+```
+
+Refiner:
+```bash
+lilypad run sdxl-pipeline:v1.0-refiner-lilypad1 -i Prompt="an astronaut floating against a white background"
+```
+
+### Specifying tunables
+
+If you wish to specify more than one tunable, such as the number of steps, simply add more `-i` flags, like so:
+
+```bash
+lilypad run sdxl-pipeline -i Prompt="an astronaut floating against a white background" -i Steps=69
+```
+
+See the options and tunables section for more information on what tunables are available.
+
+## Docker
+
+To run these modules in Docker, you can use the following commands:
+
+### SDXL v0.9
+
+Base:
+```bash
+docker run -ti --gpus all \
+    -v $PWD/outputs:/outputs \
+    -e PROMPT="an astronaut floating against a white background" \
+    -e STEPS=50 \
+    zorlin/sdxl:v0.9-base-lilypad1
+```
+
+Refiner:
+```bash
+docker run -ti --gpus all \
+    -v $PWD/outputs:/outputs \
+    -e PROMPT="an astronaut floating against a white background" \
+    -e STEPS=50 \
+    zorlin/sdxl:v0.9-refiner-lilypad1
+```
+
+### SDXL v1.0
+
+Base:
+```bash
+docker run -ti --gpus all \
+    -v $PWD/outputs:/outputs \
+    -e PROMPT="an astronaut floating against a white background" \
+    -e STEPS=50 \
+    zorlin/sdxl:v1.0-base-lilypad1
+```
+
+Refiner:
+```bash
+docker run -ti --gpus all \
+    -v $PWD/outputs:/outputs \
+    -e PROMPT="an astronaut floating against a white background" \
+    -e STEPS=50 \
+    zorlin/sdxl:v1.0-refiner-lilypad1
+```
+
+### Specifying tunables
+If you wish to specify more than one tunable, such as the number of steps, simply add more `-e` flags, like so:
+
+```bash
+-e PROMPT="an astronaut floating against a white background" \
+-e STEPS=69 \
+-e SIZE=2048 \
+```
+
+See the options and tunables section for more information on what tunables are available.
 
 # Development
 You can build the Docker containers that form this module by following these steps (replacing Dockerfile-sdxl-0.9-refiner and its Git tags with the appropriate Dockerfile and tags for the model you wish to use):
@@ -73,7 +128,12 @@ DOCKER_BUILDKIT=1 docker build -f Dockerfile-sdxl-0.9-refiner -t zorlin/sdxl:v0.
 mkdir -p outputs
 ```
 
-## Testing
+# Publishing for production
+To publish all of the images, run `scripts/build.sh`. Once you're satisfied, run `release.sh`.
+
+Make sure to set the `HUGGINGFACE_TOKEN` environment variable to your **read only** Hugging Face token before running the scripts.
+
+# Testing
 Fork this repository and make your changes. Then, build a Docker container and run the module with your changes locally to test them out.
 
 Once you've made your changes, publish your Docker image, then edit `lilypad_module.json.tmpl` to point at it and create a Git tag such as `v0.9-lilypad10`.
