@@ -50,7 +50,7 @@ start_time = time.time()
 while time.time() - start_time < timeout:
     try:
         response = requests.get(startup_check_url)
-	time.sleep(1)
+        time.sleep(1)
         if response.status_code == 200:
             break
     except requests.exceptions.RequestException:
