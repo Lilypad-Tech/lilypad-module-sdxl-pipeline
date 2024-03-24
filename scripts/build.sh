@@ -35,7 +35,7 @@ export DOCKER_BUILDKIT=1
 
 # Build the v0.9 modules
 docker build -f Dockerfile-sdxl-0.9-base -t zorlin/sdxl:v0.9-base-lilypad$V0_9_BASE --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
-docker build -f Dockerfile-sdxl-0.9-refiner -t zorlin/sdxl:v0.9-base-lilypad$V0_9_REFINER --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
+docker build -f Dockerfile-sdxl-0.9-refiner -t zorlin/sdxl:v0.9-refiner-lilypad$V0_9_REFINER --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
 # Build the v1.0 modules
 docker build -f Dockerfile-sdxl-1.0-base -t zorlin/sdxl:v1.0-base-lilypad$V1_0_BASE --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
 docker build -f Dockerfile-sdxl-1.0-refiner -t zorlin/sdxl:v1.0-refiner-lilypad$V1_0_REFINER --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
