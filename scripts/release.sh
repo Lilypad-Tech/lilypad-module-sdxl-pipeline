@@ -64,6 +64,9 @@ git add lilypad_module.json.tmpl
 git commit -m "Update container version to v1.0-refiner-lilypad$V1_0_REFINER"
 git tag v1.0-refiner-lilypad$LILYPAD_V1_0_REFINER
 
+# Switch back to main
+git checkout main
+
 # Inform the user they should update README.md after testing the new modules
 echo "Please test the new modules and update README.md with the new versions when you're done."
 echo
