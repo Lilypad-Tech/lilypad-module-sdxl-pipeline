@@ -19,6 +19,7 @@ The following tunables are available. All of them are optional, and have default
 | `Scheduler` | The scheduler to use for the model | `normal` | `normal`, `karras`, `exponential`, `sgm_uniform`, `simple`, `ddim_uniform` |
 | `Sampler` | The sampler to use for the model | `euler_ancestral` |  `"euler"`, `"euler_ancestral"`, `"heun"`, `"heunpp2"`, `"dpm_2"`, `"dpm_2_ancestral"`, `"lms"`, `"dpm_fast"`, `"dpm_adaptive"`, `"dpmpp_2s_ancestral"`, `"dpmpp_sde"`, `"dpmpp_sde_gpu"`, `"dpmpp_2m"`, `"dpmpp_2m_sde"`, `"dpmpp_2m_sde_gpu"`, `"dpmpp_3m_sde"`, `"dpmpp_3m_sde_gpu"`, `"ddpm"`, `"lcm"` |
 | `Size` | The output size requested in px | `1024` | `512`, `768`, `1024`, `2048` |
+| `Batching` | How many images to produce | `1` | `1`, `2`, `4`, `8` |
 
 See the usage sections for the runner of your choice for more information on how to set and use these variables.
 

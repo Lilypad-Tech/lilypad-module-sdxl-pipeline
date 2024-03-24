@@ -123,10 +123,10 @@ if size not in ["512", "768", "1024"]:
     stop_comfyui()
     sys.exit(1)
 
-# Get batch size from $BATCH_SIZE, falling back to 1 if not set
-batching = os.environ.get("BATCH_SIZE") or batching
-if batching not in ["1", "2", "4", "8", "16"]:
-    print(f"Invalid batch size {batching}. Must be one of 1, 2, 4, 8, 16.")
+# Get batch size from $BATCHING, falling back to 1 if not set
+batching = os.environ.get("BATCHING") or batching
+if batching not in ["1", "2", "4", "8"]:
+    print(f"Invalid batch size {batching}. Must be one of 1, 2, 4, 8.")
     stop_comfyui()
     sys.exit(1)
 

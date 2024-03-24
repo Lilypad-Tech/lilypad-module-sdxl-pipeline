@@ -25,6 +25,7 @@
                     "{{ if .Sampler }}{{ subst "SAMPLER=%s" .Sampler }}{{ end }}",
                     "{{ if .Scheduler }}{{ subst "SCHEDULER=%s" .Scheduler }}{{ end }}",
                     "{{ if .Size }}{{ subst "SIZE=%s" .Size }}{{ end }}",
+                    "{{ if .Batching }}{{ subst "BATCHING=%s" .Size }}{{ end }}",
                     "HF_HUB_OFFLINE=1"
                 ],
                 "Image": "docker.io/zorlin/sdxl:v0.9-lilypad5",
