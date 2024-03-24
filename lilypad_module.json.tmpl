@@ -19,12 +19,13 @@
                 "Params": {
                 "Entrypoint": null,
                 "EnvironmentVariables": [
-                    "{{ if .Prompt }}{{ subst "PROMPT=%s" .Prompt }}{{ end }}",
-                    "{{ if .Seed }}{{ subst "SEED=%s" .Seed }}{{ end }}",
-                    "{{ if .Steps }}{{ subst "STEPS=%s" .Steps }}{{ end }}",
-                    "{{ if .Sampler }}{{ subst "SAMPLER=%s" .Sampler }}{{ end }}",
-                    "{{ if .Scheduler }}{{ subst "SCHEDULER=%s" .Scheduler }}{{ end }}",
-                    "{{ if .Size }}{{ subst "SIZE=%s" .Size }}{{ end }}",
+                    {{ if .Prompt }}"{{ subst "PROMPT=%s" .Prompt }}",{{ end }}
+                    {{ if .Seed }}"{{ subst "SEED=%s" .Seed }}",{{ end }}
+                    {{ if .Steps }}"{{ subst "STEPS=%s" .Steps }}",{{ end }}
+                    {{ if .Sampler }}"{{ subst "SAMPLER=%s" .Sampler }}",{{ end }}
+                    {{ if .Scheduler }}"{{ subst "SCHEDULER=%s" .Scheduler }}",{{ end }}
+                    {{ if .Size }}"{{ subst "SIZE=%s" .Size }}",{{ end }}
+                    {{ if .Batching }}"{{ subst "BATCHING=%s" .Batching }}",{{ end }}
                     "HF_HUB_OFFLINE=1"
                 ],
                 "Image": "zorlin/sdxl:v0.9-base-lilypad1",
