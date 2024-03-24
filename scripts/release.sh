@@ -42,28 +42,28 @@ fi
 # We'll then tag the commit with the new Lilypad version and push the tag to the repository.
 git checkout sdxl-0.9-base
 VALUE="zorlin/sdxl:v0.9-base-lilypad$V0_9_BASE"
-sed -i 's/^\(\s*\)"Image": .*/\1"Image": "'"$VALUE"'",/' lilypad_module.json.tmpl
+sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'"$VALUE"'",|' lilypad_module.json.tmpl
 git add lilypad_module.json.tmpl
 git commit -m "Update container version to v0.9-base-lilypad$V0_9_BASE"
 git tag v0.9-base-lilypad$LILYPAD_V0_9_BASE
 
 git checkout sdxl-0.9-refiner
 VALUE="zorlin/sdxl:v0.9-refiner-lilypad$V0_9_REFINER"
-sed -i 's/^\(\s*\)"Image": .*/\1"Image": "'"$VALUE"'",/' lilypad_module.json.tmpl
+sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'"$VALUE"'",|' lilypad_module.json.tmpl
 git add lilypad_module.json.tmpl
 git commit -m "Update container version to v0.9-refiner-lilypad$V0_9_REFINER"
 git tag v0.9-refiner-lilypad$LILYPAD_V0_9_REFINER
 
 git checkout sdxl-1.0-base
 VALUE="zorlin/sdxl:v1.0-base-lilypad$V1_0_BASE"
-sed -i 's/^\(\s*\)"Image": .*/\1"Image": "'"$VALUE"'",/' lilypad_module.json.tmpl
+sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'"$VALUE"'",|' lilypad_module.json.tmpl
 git add lilypad_module.json.tmpl
 git commit -m "Update container version to v1.0-base-lilypad$V1_0_BASE"
 git tag v1.0-base-lilypad$LILYPAD_V1_0_BASE
 
 git checkout sdxl-1.0-refiner
 VALUE="zorlin/sdxl:v1.0-refiner-lilypad$V1_0_REFINER"
-sed -i 's/^\(\s*\)"Image": .*/\1"Image": "'"$VALUE"'",/' lilypad_module.json.tmpl
+sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'"$VALUE"'",|' lilypad_module.json.tmpl
 git add lilypad_module.json.tmpl
 git commit -m "Update container version to v1.0-refiner-lilypad$V1_0_REFINER"
 git tag v1.0-refiner-lilypad$LILYPAD_V1_0_REFINER
