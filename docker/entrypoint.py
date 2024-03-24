@@ -33,6 +33,7 @@ SCHEDULER_NAMES = ["normal", "karras", "exponential", "sgm_uniform", "simple", "
 
 timeout = 30 # If ComfyUI doesn't start within this many seconds, we'll give up
 default_steps = 50 # Default number of steps
+batching = 1 # Default batch size
 
 # Run ComfyUI in a subprocess.
 debug_mode = False
@@ -122,6 +123,13 @@ if size not in ["512", "768", "1024"]:
     stop_comfyui()
     sys.exit(1)
 
+# Get batch size from $BATCH_SIZE, falling back to 1 if not set
+batching = os.environ.get("BATCH_SIZE") or batching
+if batching not in ["1", "2", "4", "8", "16"]:
+    print(f"Invalid batch size {batching}. Must be one of 1, 2, 4, 8, 16.")
+    stop_comfyui()
+    sys.exit(1)
+
 # Get sampler name from $SAMPLER, falling back to "euler_ancestral" if not set
 sampler = os.environ.get("SAMPLER") or "euler_ancestral"
 if sampler not in KSAMPLER_NAMES:
@@ -146,6 +154,7 @@ save_image_node = prompt_workflow["9"]
 # set image dimensions and batch size in EmptyLatentImage node
 empty_latent_img_node["inputs"]["width"] = size
 empty_latent_img_node["inputs"]["height"] = size
+empty_latent_img_node["inputs"]["batch_size"] = batching
 
 # set the text prompt for positive CLIPTextEncode node
 prompt_pos_node["inputs"]["text"] = prompt
