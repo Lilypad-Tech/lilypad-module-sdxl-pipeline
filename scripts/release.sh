@@ -40,7 +40,7 @@ fi
 
 # For each module, we'll switch to that module's branch, update lilypad_module.json.tmpl with the new Docker version, commit the change, and push it to the repository.
 # We'll then tag the commit with the new Lilypad version and push the tag to the repository.
-git checkout sdxl-0.9-base
+git checkout sdxl-0.9-base && git pull
 VALUE="zorlin/sdxl:v0.9-base-lilypad$V0_9_BASE"
 echo $VALUE
 sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'$VALUE'",|' lilypad_module.json.tmpl
@@ -48,7 +48,7 @@ git add lilypad_module.json.tmpl
 git commit -m "Update container version to v0.9-base-lilypad$V0_9_BASE"
 git tag v0.9-base-lilypad$LILYPAD_V0_9_BASE
 
-git checkout sdxl-0.9-refiner
+git checkout sdxl-0.9-refiner && git pull
 VALUE="zorlin/sdxl:v0.9-refiner-lilypad$V0_9_REFINER"
 echo $VALUE
 sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'$VALUE'",|' lilypad_module.json.tmpl
@@ -56,7 +56,7 @@ git add lilypad_module.json.tmpl
 git commit -m "Update container version to v0.9-refiner-lilypad$V0_9_REFINER"
 git tag v0.9-refiner-lilypad$LILYPAD_V0_9_REFINER
 
-git checkout sdxl-1.0-base
+git checkout sdxl-1.0-base && git pull
 VALUE="zorlin/sdxl:v1.0-base-lilypad$V1_0_BASE"
 echo $VALUE
 sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'$VALUE'",|' lilypad_module.json.tmpl
@@ -64,7 +64,7 @@ git add lilypad_module.json.tmpl
 git commit -m "Update container version to v1.0-base-lilypad$V1_0_BASE"
 git tag v1.0-base-lilypad$LILYPAD_V1_0_BASE
 
-git checkout sdxl-1.0-refiner
+git checkout sdxl-1.0-refiner && git pull
 VALUE="zorlin/sdxl:v1.0-refiner-lilypad$V1_0_REFINER"
 echo $VALUE
 sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'$VALUE'",|' lilypad_module.json.tmpl
