@@ -118,7 +118,7 @@ if size not in ["512", "768", "1024", "2048"]:
 # Get steps from $STEPS, falling back to default_steps if not set
 # Valid range is 5 to 200
 steps = os.environ.get("STEPS") or default_steps
-if steps not in range(5, 201):
+if int(steps) not in range(5, 201):
     print(f"Invalid number of steps ({steps}). Valid range is 5 to 200 inclusive.")
     stop_comfyui()
     sys.exit(1)
