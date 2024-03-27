@@ -7,6 +7,7 @@ The special branches are named as follows:
 * sdxl-0.9-refiner
 * sdxl-1.0-base
 * sdxl-0.9-refiner
+* sdxl-1.0-base-hiresfix
 
 You'll want to look at the `main` branch if you want the proper README.
 
