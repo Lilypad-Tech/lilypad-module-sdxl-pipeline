@@ -27,13 +27,13 @@ if [[ -n $(git status -s) ]]; then
 fi
 
 # Check that the versions are set
-if [[ -z $LILYPAD_V0_9_BASE || -z $LILYPAD_V0_9_REFINER || -z $LILYPAD_V1_0_BASE || -z $LILYPAD_V1_0_REFINER ]]; then
+if [[ -z $LILYPAD_V0_9_BASE || -z $LILYPAD_V0_9_REFINER || -z $LILYPAD_V1_0_BASE || -z $LILYPAD_V1_0_REFINER || -z $LILYPAD_V1_0_BASE_HIRESFIX ]]; then
     echo "Please set the versions in VERSIONS.env before releasing."
     exit 1
 fi
 
 # Check that the Docker versions are set
-if [[ -z $V0_9_BASE || -z $V0_9_REFINER || -z $V1_0_BASE || -z $V1_0_REFINER ]]; then
+if [[ -z $V0_9_BASE || -z $V0_9_REFINER || -z $V1_0_BASE || -z $V1_0_REFINER || -z $V1_0_BASE_HIRESFIX ]]; then
     echo "Please set the Docker versions in VERSIONS.env before releasing."
     exit 1
 fi
@@ -72,6 +72,14 @@ git add lilypad_module.json.tmpl
 git commit -m "Update container version to v1.0-refiner-lilypad$V1_0_REFINER"
 git tag v1.0-refiner-lilypad$LILYPAD_V1_0_REFINER
 
+git checkout sdxl-1.0-base-hiresfix && git pull
+VALUE="zorlin/sdxl:v1.0-base-hiresfix-lilypad$V1_0_BASE_HIRESFIX"
+echo $VALUE
+sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'$VALUE'",|' lilypad_module.json.tmpl
+git add lilypad_module.json.tmpl
+git commit -m "Update container version to v1.0-base-hiresfix-lilypad$V1_0_BASE_HIRESFIX"
+git tag v1.0-base-hiresfix-lilypad$LILYPAD_V1_0_BASE_HIRESFIX
+
 # Switch back to main
 git checkout main
 
@@ -83,5 +91,6 @@ echo "lilypad run sdxl-pipeline:v0.9-base-lilypad$LILYPAD_V0_9_BASE -i Prompt='S
 echo "lilypad run sdxl-pipeline:v0.9-refiner-lilypad$LILYPAD_V0_9_REFINER -i Prompt='Something awesome this way comes'"
 echo "lilypad run sdxl-pipeline:v1.0-base-lilypad$LILYPAD_V1_0_BASE -i Prompt='Something awesome this way comes'"
 echo "lilypad run sdxl-pipeline:v1.0-refiner-lilypad$LILYPAD_V1_0_REFINER -i Prompt='Something awesome this way comes'"
+echo "lilypad run sdxl-pipeline:v1.0-base-hiresfix-lilypad$LILYPAD_V1_0_BASE_HIRESFIX -i Prompt='Something awesome this way comes'"
 echo
 echo "Don't forget to update the README.md with the new versions!"

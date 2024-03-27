@@ -15,7 +15,7 @@ cd "$(dirname "$0")"
 source VERSIONS.env
 
 # Check that the Docker versions are set
-if [[ -z $V0_9_BASE || -z $V0_9_REFINER || -z $V1_0_BASE || -z $V1_0_REFINER ]]; then
+if [[ -z $V0_9_BASE || -z $V0_9_REFINER || -z $V1_0_BASE || -z $V1_0_REFINER || -z $V1_0_BASE_HIRESFIX ]]; then
     echo "Please set the Docker versions in VERSIONS.env before building."
     exit 1
 fi
@@ -39,6 +39,8 @@ docker build -f Dockerfile-sdxl-0.9-refiner -t zorlin/sdxl:v0.9-refiner-lilypad$
 # Build the v1.0 modules
 docker build -f Dockerfile-sdxl-1.0-base -t zorlin/sdxl:v1.0-base-lilypad$V1_0_BASE --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
 docker build -f Dockerfile-sdxl-1.0-refiner -t zorlin/sdxl:v1.0-refiner-lilypad$V1_0_REFINER --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
+# Build the v1.0 module with the HiResFix
+docker build -f Dockerfile-sdxl-1.0-base-hiresfix -t zorlin/sdxl:v1.0-base-hiresfix-lilypad$V1_0_BASE_HIRESFIX --target runner --build-arg HUGGINGFACE_TOKEN=$HUGGINGFACE_TOKEN .
 
 # Publish the Docker containers
 echo "Publishing Docker containers..."
@@ -46,6 +48,7 @@ docker push zorlin/sdxl:v0.9-base-lilypad$V0_9_BASE
 docker push zorlin/sdxl:v0.9-refiner-lilypad$V0_9_REFINER
 docker push zorlin/sdxl:v1.0-base-lilypad$V1_0_BASE
 docker push zorlin/sdxl:v1.0-refiner-lilypad$V1_0_REFINER
+docker push zorlin/sdxl:v1.0-base-hiresfix-lilypad$V1_0_BASE_HIRESFIX
 
 # Inform the user they should test the new Docker containers before releasing the associated Lilypad modules
 echo "Please test the new Docker containers prior to running release.sh."
