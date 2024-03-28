@@ -27,7 +27,7 @@ RUN huggingface-cli login --token $HUGGINGFACE_TOKEN && \
     rm /root/.cache/huggingface/token
 
 FROM builder as runner
-ADD entrypoint-hiresfix.py /app/entrypoint-hiresfix.py
+ADD entrypoint-hiresfix.py /app/entrypoint.py
 
 # Add our workflows
 ADD workflow.json /app/workflow-hiresfix.json
@@ -35,4 +35,4 @@ ADD workflow.json /app/workflow-hiresfix.json
 # Set the name of our chosen model
 RUN jq '.["16"].inputs.ckpt_name = "v2-1_768-ema-pruned.ckpt"' /app/workflow-hiresfix.json > /app/temp_workflow-hiresfix.json && mv /app/temp_workflow-hiresfix.json /app/workflow-hiresfix.json
 
-ENTRYPOINT ["python3", "-u", "/app/entrypoint-hiresfix.py"]
+ENTRYPOINT ["python3", "-u", "/app/entrypoint.py"]
