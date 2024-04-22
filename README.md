@@ -1,6 +1,4 @@
 # SDXL Pipeline for Lilypad and Docker 🐋
-**In early testing stages: here be dragons.**
-
 Based on ComfyUI, the SDXL Pipeline modules for Lilypad allow you generate images on Lilypad using Stable Diffusion XL and related models.
 
 They supports both the Refiner and Base versions of SDXL v0.9 and v1.0.
@@ -29,23 +27,23 @@ To run SDXL Pipeline in Lilypad, you can use the following commands:
 ### SDXL v0.9
 Base:
 ```bash
-lilypad run sdxl-pipeline:v0.9-base-lilypad1 -i Prompt="an astronaut floating against a white background"
+lilypad run sdxl-pipeline:v0.9-base-lilypad3 -i Prompt="an astronaut floating against a white background"
 ```
 
 Refiner:
 ```bash
-lilypad run sdxl-pipeline:v0.9-refiner-lilypad1 -i Prompt="an astronaut floating against a white background"
+lilypad run sdxl-pipeline:v0.9-refiner-lilypad3 -i Prompt="an astronaut floating against a white background"
 ```
 
 ### SDXL 1.0
 Base:
 ```bash
-lilypad run sdxl-pipeline:v1.0-base-lilypad1 -i Prompt="an astronaut floating against a white background"
+lilypad run sdxl-pipeline:v1.0-base-lilypad3 -i Prompt="an astronaut floating against a white background"
 ```
 
 Refiner:
 ```bash
-lilypad run sdxl-pipeline:v1.0-refiner-lilypad1 -i Prompt="an astronaut floating against a white background"
+lilypad run sdxl-pipeline:v1.0-refiner-lilypad3 -i Prompt="an astronaut floating against a white background"
 ```
 
 ### Specifying tunables
@@ -70,7 +68,7 @@ docker run -ti --gpus all \
     -v $PWD/outputs:/outputs \
     -e PROMPT="an astronaut floating against a white background" \
     -e STEPS=50 \
-    zorlin/sdxl:v0.9-base-lilypad1
+    zorlin/sdxl:v0.9-base-lilypad3
 ```
 
 Refiner:
@@ -79,7 +77,7 @@ docker run -ti --gpus all \
     -v $PWD/outputs:/outputs \
     -e PROMPT="an astronaut floating against a white background" \
     -e STEPS=50 \
-    zorlin/sdxl:v0.9-refiner-lilypad1
+    zorlin/sdxl:v0.9-refiner-lilypad3
 ```
 
 ### SDXL v1.0
@@ -90,7 +88,7 @@ docker run -ti --gpus all \
     -v $PWD/outputs:/outputs \
     -e PROMPT="an astronaut floating against a white background" \
     -e STEPS=50 \
-    zorlin/sdxl:v1.0-base-lilypad1
+    zorlin/sdxl:v1.0-base-lilypad3
 ```
 
 Refiner:
@@ -99,7 +97,7 @@ docker run -ti --gpus all \
     -v $PWD/outputs:/outputs \
     -e PROMPT="an astronaut floating against a white background" \
     -e STEPS=50 \
-    zorlin/sdxl:v1.0-refiner-lilypad1
+    zorlin/sdxl:v1.0-refiner-lilypad3
 ```
 
 ### Specifying tunables
