@@ -83,7 +83,7 @@ if response is None or response.status_code != 200:
     sys.exit(1)
 
 # Sleep for a second to give the server time to start up
-time.sleep(1)
+time.sleep(3)
 
 # Process and submit our job
 # ======================================================================
