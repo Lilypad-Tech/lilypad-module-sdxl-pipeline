@@ -15,14 +15,8 @@ cd "$(dirname "$0")"
 source VERSIONS.env
 
 # Check that the Docker versions are set
-if [[ -z $V0_9_BASE || -z $V0_9_REFINER || -z $V1_0_BASE || -z $V1_0_REFINER || -z $V1_0_BASE_HIRESFIX ]]; then
+if [[ -z $VLLAMA3_8B ]]; then
     echo "Please set the Docker versions in VERSIONS.env before building."
-    exit 1
-fi
-
-# Check that HUGGINGFACE_TOKEN is set
-if [[ -z $HUGGINGFACE_TOKEN ]]; then
-    echo "Please set the HUGGINGFACE_TOKEN before building."
     exit 1
 fi
 

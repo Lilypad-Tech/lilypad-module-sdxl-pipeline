@@ -27,13 +27,13 @@ if [[ -n $(git status -s) ]]; then
 fi
 
 # Check that the versions are set
-if [[ -z $LILYPAD_V0_9_BASE || -z $LILYPAD_V0_9_REFINER || -z $LILYPAD_V1_0_BASE || -z $LILYPAD_V1_0_REFINER || -z $LILYPAD_V1_0_BASE_HIRESFIX ]]; then
+if [[ -z $LILYPAD_$VLLAMA3_8B ]]; then
     echo "Please set the versions in VERSIONS.env before releasing."
     exit 1
 fi
 
 # Check that the Docker versions are set
-if [[ -z $V0_9_BASE || -z $V0_9_REFINER || -z $V1_0_BASE || -z $V1_0_REFINER || -z $V1_0_BASE_HIRESFIX ]]; then
+if [[ -z $VLLAMA3_8B ]]; then
     echo "Please set the Docker versions in VERSIONS.env before releasing."
     exit 1
 fi
