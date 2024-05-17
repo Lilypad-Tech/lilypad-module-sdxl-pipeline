@@ -107,6 +107,8 @@ prompt_workflow["prompt"] = prompt
 # everything set, add entire workflow to queue.
 model_response = run_prompt(prompt_workflow)
 
+# Ensure the output directory exists
+os.makedirs('/outputs', exist_ok=True)
 # Save the response as /outputs/response.json
 print(model_response)
 with open('/outputs/response.json', 'w') as f:
