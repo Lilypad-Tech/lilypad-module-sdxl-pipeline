@@ -33,7 +33,7 @@ def stop_ollama():
 def run_prompt(prompt_workflow):
     p = prompt_workflow
     data = json.dumps(p).encode('utf-8')
-    req =  request.Request("http://localhost:11434/api/generate", data=data)
+    req =  request.Request("http://127.0.0.1:11434/api/generate", data=data)
     with request.urlopen(req) as response:
         response_data = response.read().decode('utf-8')
         result = json.loads(response_data)
@@ -61,7 +61,7 @@ ollama_thread = threading.Thread(target=run_ollama)
 ollama_thread.start()
 
 # Wait for the server to be ready
-startup_check_url = "http://localhost:11434/"
+startup_check_url = "http://127.0.0.1:11434/"
 response = None
 
 start_time = time.time()
