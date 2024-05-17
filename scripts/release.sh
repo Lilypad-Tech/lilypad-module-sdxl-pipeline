@@ -40,45 +40,13 @@ fi
 
 # For each module, we'll switch to that module's branch, update lilypad_module.json.tmpl with the new Docker version, commit the change, and push it to the repository.
 # We'll then tag the commit with the new Lilypad version and push the tag to the repository.
-git checkout sdxl-0.9-base && git pull
-VALUE="zorlin/sdxl:v0.9-base-lilypad$V0_9_BASE"
+git checkout llama3-8b && git pull
+VALUE="zorlin/ollama:llama3-8b-lilypad$VLLAMA3_8B"
 echo $VALUE
 sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'$VALUE'",|' lilypad_module.json.tmpl
 git add lilypad_module.json.tmpl
-git commit -m "Update container version to v0.9-base-lilypad$V0_9_BASE"
-git tag v0.9-base-lilypad$LILYPAD_V0_9_BASE
-
-git checkout sdxl-0.9-refiner && git pull
-VALUE="zorlin/sdxl:v0.9-refiner-lilypad$V0_9_REFINER"
-echo $VALUE
-sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'$VALUE'",|' lilypad_module.json.tmpl
-git add lilypad_module.json.tmpl
-git commit -m "Update container version to v0.9-refiner-lilypad$V0_9_REFINER"
-git tag v0.9-refiner-lilypad$LILYPAD_V0_9_REFINER
-
-git checkout sdxl-1.0-base && git pull
-VALUE="zorlin/sdxl:v1.0-base-lilypad$V1_0_BASE"
-echo $VALUE
-sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'$VALUE'",|' lilypad_module.json.tmpl
-git add lilypad_module.json.tmpl
-git commit -m "Update container version to v1.0-base-lilypad$V1_0_BASE"
-git tag v1.0-base-lilypad$LILYPAD_V1_0_BASE
-
-git checkout sdxl-1.0-refiner && git pull
-VALUE="zorlin/sdxl:v1.0-refiner-lilypad$V1_0_REFINER"
-echo $VALUE
-sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'$VALUE'",|' lilypad_module.json.tmpl
-git add lilypad_module.json.tmpl
-git commit -m "Update container version to v1.0-refiner-lilypad$V1_0_REFINER"
-git tag v1.0-refiner-lilypad$LILYPAD_V1_0_REFINER
-
-git checkout sdxl-1.0-base-hiresfix && git pull
-VALUE="zorlin/sdxl:v1.0-base-hiresfix-lilypad$V1_0_BASE_HIRESFIX"
-echo $VALUE
-sed -i 's|^\(\s*\)"Image": .*|\1"Image": "'$VALUE'",|' lilypad_module.json.tmpl
-git add lilypad_module.json.tmpl
-git commit -m "Update container version to v1.0-base-hiresfix-lilypad$V1_0_BASE_HIRESFIX"
-git tag v1.0-base-hiresfix-lilypad$LILYPAD_V1_0_BASE_HIRESFIX
+git commit -m "Update container version to llama3-8b-lilypad$VLLAMA3_8B"
+git tag llama3-8b-lilypad$LILYPAD_VLLAMA3_8B
 
 # Switch back to main
 git checkout main
@@ -87,10 +55,6 @@ git checkout main
 echo "Please test the new modules and update README.md with the new versions when you're done."
 echo
 echo "The easiest way to test them is... with Lilypad! Here's some commands to inspire you:"
-echo "lilypad run sdxl-pipeline:v0.9-base-lilypad$LILYPAD_V0_9_BASE -i Prompt='Something awesome this way comes'"
-echo "lilypad run sdxl-pipeline:v0.9-refiner-lilypad$LILYPAD_V0_9_REFINER -i Prompt='Something awesome this way comes'"
-echo "lilypad run sdxl-pipeline:v1.0-base-lilypad$LILYPAD_V1_0_BASE -i Prompt='Something awesome this way comes'"
-echo "lilypad run sdxl-pipeline:v1.0-refiner-lilypad$LILYPAD_V1_0_REFINER -i Prompt='Something awesome this way comes'"
-echo "lilypad run sdxl-pipeline:v1.0-base-hiresfix-lilypad$LILYPAD_V1_0_BASE_HIRESFIX -i Prompt='Something awesome this way comes'"
+echo "lilypad run ollama-pipeline:llama3-8b-lilypad$LILYPAD_VLLAMA3_8B -i Prompt='Something awesome this way comes'"
 echo
 echo "Don't forget to update the README.md with the new versions!"

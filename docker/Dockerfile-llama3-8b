@@ -1,0 +1,34 @@
+FROM nvidia/cuda:12.3.2-base-ubuntu22.04 AS builder
+
+ARG HUGGINGFACE_TOKEN
+
+RUN mkdir /app
+WORKDIR /app
+
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update -y && apt-get install -y curl python3 python3-pip git libgl1-mesa-glx libglib2.0-0 && \
+    pip3 install huggingface_hub==0.21.4
+
+# Download Ollama
+RUN bash -c 'curl -fsSL https://ollama.com/install.sh | sh'
+
+# Download models (LLaMa3)
+RUN bash -c ' \
+    ollama serve & \
+    SERVER_PID=$!; \
+    sleep 5; \
+    ollama pull llama3; \
+    kill $SERVER_PID; \
+    wait $SERVER_PID \
+'
+FROM builder as runner
+ADD entrypoint.py /app/entrypoint.py
+
+# Add our workflows
+ADD workflow.json /app/workflow.json
+
+# Set the name of our chosen model
+RUN apt install -y jq
+RUN jq '.model = "llama3"' /app/workflow.json > /app/temp_workflow.json && mv /app/temp_workflow.json /app/workflow.json
+
+ENTRYPOINT ["python3", "-u", "/app/entrypoint.py"]
