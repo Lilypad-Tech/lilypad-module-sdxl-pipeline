@@ -28,7 +28,7 @@ cd ../docker/
 export DOCKER_BUILDKIT=1
 
 # Build the llama3 8b module
-docker build -f Dockerfile-llama3-8b -t zorlin/ollama:llama3-8b-lilypad$VLLAMA3_8B --target runner
+docker build -f Dockerfile-llama3-8b -t zorlin/ollama:llama3-8b-lilypad$VLLAMA3_8B --target runner .
 
 # Publish the Docker containers
 echo "Publishing Docker containers..."
