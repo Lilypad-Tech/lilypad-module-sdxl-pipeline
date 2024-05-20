@@ -45,8 +45,7 @@ def run_prompt(prompt_workflow):
 timeout = 30 # If ollama doesn't start within this many seconds, we'll give up
 batching = 1 # Default batch size
 
-# Run ollama in a subprocess.
-debug_mode = False
+debug_mode = True
 
 # Check if --debug flag is passed
 if "--debug" in sys.argv:
@@ -83,6 +82,8 @@ while timer - start_time < timeout:
             break
     except requests.exceptions.RequestException as e:
         print("Server not ready yet (requests raised an exception). Waiting 1 second...")
+        if debug_mode:
+            print(e)
         time.sleep(delay)
         timer = time.time()
 
