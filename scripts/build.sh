@@ -47,8 +47,8 @@ docker build -f Dockerfile-sdxl-1.0-base-hiresfix -t public.ecr.aws/lilypad-netw
 
 # Publish the Docker containers
 echo "Publishing Docker containers..."
-docker push public.ecr.aws/lilypad-network/sdxl:v0.9-base-lilypad$V0_9_BASE
-docker push public.ecr.aws/lilypad-network/sdxl:v0.9-refiner-lilypad$V0_9_REFINER
+# docker push public.ecr.aws/lilypad-network/sdxl:v0.9-base-lilypad$V0_9_BASE
+# docker push public.ecr.aws/lilypad-network/sdxl:v0.9-refiner-lilypad$V0_9_REFINER
 docker push public.ecr.aws/lilypad-network/sdxl:v1.0-base-lilypad$V1_0_BASE
 docker push public.ecr.aws/lilypad-network/sdxl:v1.0-refiner-lilypad$V1_0_REFINER
 docker push public.ecr.aws/lilypad-network/sdxl:v1.0-base-hiresfix-lilypad$V1_0_BASE_HIRESFIX
